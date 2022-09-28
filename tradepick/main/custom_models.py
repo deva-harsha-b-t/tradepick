@@ -2,7 +2,7 @@
 import torch.nn as nn
 import torch
 import os
-from .transformer import *
+from .transformer import TransformerModels
 
 
 class ModelUtils:
@@ -40,7 +40,7 @@ class rnn_params:
     hidden_dim = 2048
     num_layers = 1
     output_dim = 1
-    n_epochs = 50
+    n_epochs = 20
     lr = 0.00001
 
 
@@ -51,19 +51,19 @@ class transf_params:
     forward_dim = 2048
     output_dim = 1
     dropout = 0
-    n_epochs = 50
+    n_epochs = 20
     lr = 0.01
 
 
 class TransformerModel(nn.Module):
     def __init__(self, params):
         super(TransformerModel, self).__init__()
-        self.transf = TransformerModels(n_layers=transf_params.n_layers,
-                                        num_heads=transf_params.num_heads,
-                                        model_dim=transf_params.model_dim,
-                                        forward_dim=transf_params.forward_dim,
+        self.transf = TransformerModels(n_layers=params.n_layers,
+                                        num_heads=params.num_heads,
+                                        model_dim=params.model_dim,
+                                        forward_dim=params.forward_dim,
                                         output_dim=16,
-                                        dropout=transf_params.dropout)
+                                        dropout=params.dropout)
         self.linear = nn.Linear(16, params.output_dim)
 
     def forward(self, x):

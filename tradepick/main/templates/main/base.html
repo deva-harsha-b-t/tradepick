@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,6 +58,17 @@
   margin-bottom: 20px;
   width:100%
 }
+.img-div{
+  border: 1px solid rgb(0, 0, 0);
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 10px;
+}
+.img{
+  height: 500px;
+  width: 500px;
+}
 ul {
   list-style-type: none;
   margin: 0;
@@ -111,12 +123,13 @@ ul {
         <div id="inner">
           <form action = "processstock" class="form-inline">
             <label class="my-1 mr-2 color-black" for="inlineFormCustomSelectPref">select stock </label>
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "stockname">
+            <!-- <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "stockname">
               <option selected>Choose stock</option>
               <option value="AAPL">Apple</option>
               <option value="DIS">Disney</option>
               <option value="NKE">Nike</option>
-            </select>
+            </select> -->
+            <input class="form-control mr-sm-2" type="search" name = "tickerforsearch" placeholder="Search stocks" aria-label="Search">
         
             <button type="submit" class="btn btn-primary my-1">Get Results</button>
           </form>
@@ -144,7 +157,7 @@ ul {
                     <div class="col-auto">
                       <div class="card" style="width: 18rem;">
                           <ul class="list-group list-group-flush">
-                            <li class="list-group-item">price</li>
+                            <li class="list-group-item">predicted price</li>
                             <li class="list-group-item">
                               <div class="alert alert-primary" role="alert">
                               {{price}}
@@ -153,7 +166,7 @@ ul {
                           </ul>
                         </div>
                     </div>
-                    <div class="form-row align-items-center">
+                    <!-- <div class="form-row align-items-center">
                         <div class="col-auto">
                           <div class="card" style="width: 18rem;">
                               <ul class="list-group list-group-flush">
@@ -164,7 +177,7 @@ ul {
                                 </div>
                               </li>
                               </ul>
-                            </div>
+                            </div> -->
                         </div>
                     <div class="form-row align-items-center">
                         <div class="col-auto">
@@ -172,9 +185,15 @@ ul {
                               <ul class="list-group list-group-flush">
                                 <li class="list-group-item">sentiment</li>
                                 <li class="list-group-item">
-                                    <div class="alert alert-success" role="alert">
+                                  {% if sentiment == "Positive" %}
+                                      <div class="alert alert-success" role="alert">
+                                            {{sentiment}}
+                                        </div>
+                                  {% else %}
+                                      <div class="alert alert-danger" role="alert">
                                       {{sentiment}}
-                                      </div>
+                                    </div>
+                                {% endif %}
                               </li>
                               </ul>
                             </div>
@@ -186,6 +205,10 @@ ul {
               </form>
           </div>
         </li>
+        <li class = "img-div">
+            <!-- <img src="{% static 'main/predictions.png' %}" alt=""> -->
+        </li>
+
         <li>
           <div class="newsdiv">
             <div class="card">
@@ -236,11 +259,6 @@ ul {
           </div>
         </li>
       </ul>
-
-
-
-
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
